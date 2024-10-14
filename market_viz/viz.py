@@ -117,7 +117,7 @@ class MarketVisualization:
             self.ax.set_ylim(min_value, max_value)    
 
     def start(self):
-        self.ani = FuncAnimation(self.fig, self.update, init_func=self.init_plot, interval=self.interval, blit=True)
+        self.ani = FuncAnimation(self.fig, self.update, init_func=self.init_plot, interval=self.interval, cache_frame_data=False, blit=True)
         plt.legend()
         plt.ion()
         plt.show()

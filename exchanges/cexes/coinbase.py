@@ -24,8 +24,8 @@ class Coinbase(Exchange):
                 
         return orders
 
-    def get_colors(self):
+    def get_colors(self) -> List[str]:
         return ["black", "springgreen"]
 
-    def name(self):
+    def name(self) -> str:
         return "coinbase"

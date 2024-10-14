@@ -23,10 +23,10 @@ class RubiconRFQ(Exchange):
         if market != None:
             return [market["asks"], market["bids"]]
 
-    def get_colors(self):
+    def get_colors(self) -> List[str]:
         return ["red", "green"]
 
-    def name(self):
+    def name(self) -> str:
         return "rubicon_rfq"
 
     ############## Helpers ##############

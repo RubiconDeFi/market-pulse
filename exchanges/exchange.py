@@ -37,11 +37,11 @@ class Exchange(ABC):
         ...
 
     @abstractmethod
-    def get_colors(self):
+    def get_colors(self) -> List[str]:
         ...
 
     @abstractmethod
-    def name(self):
+    def name(self) -> str:
         ...    
 
     def get_current_midpoint(self) -> float:

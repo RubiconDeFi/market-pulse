@@ -26,10 +26,10 @@ class Odos(Exchange):
     
         return [[ask], [bid]]
 
-    def get_colors(self):
+    def get_colors(self) -> List[str]:
         return ["slategray", "gold"]
 
-    def name(self):
+    def name(self) -> str:
         return "odos"
 
     # TODO: plural "orders" isn't really accurate.
