@@ -1,0 +1,11 @@
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+requests
+numpy
+ipywidgets
+ipympl
+python-dotenv
+aiohttp
