@@ -163,3 +163,4 @@ cython_debug/
 
 *.org
 *venv
+.DS_Store
