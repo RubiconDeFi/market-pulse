@@ -22,11 +22,15 @@ class MarketVisualization:
         self.x_data = []
         self.data_lines = {}
 
+        self.data_storage = {e.name(): [] for e in exchanges}
         
         for e in exchanges:
             self.init_lines(e)
         
         self.init_plot()
+
+    def get_exchanges(self):
+        return self.exchanges
 
     def init_lines(self, exchange):
         colors = exchange.get_colors()
@@ -67,6 +71,7 @@ class MarketVisualization:
         for exchange in self.exchanges:
             name = exchange.name()
             prices = self.get_prices(exchange)
+            self.save_data(exchange, prices, now)
 
             if self.comparison_type == "prices":
                 ask_price, bid_price = prices
@@ -116,8 +121,31 @@ class MarketVisualization:
             max_value = max(all_data) * self.TOP_SCALE
             self.ax.set_ylim(min_value, max_value)    
 
+    def save_data(self, exchange, prices, timestamp):
+        ask_price, bid_price = prices
+        
+        data_point = {
+            'timestamp': timestamp,
+            'ask_price': ask_price,
+            'bid_price': bid_price,
+            'midpoint': exchange.midpoint(prices),
+            'spread': exchange.spread(prices)
+        }
+        self.data_storage[exchange.name()].append(data_point)
+
+    def query_data(self, name, start_time=None, end_time=None):
+        data = self.data_storage.get(name, [])
+        
+        if start_time or end_time:
+            filtered_data = [p for p in data if (not start_time or p['timestamp'] >= start_time) and 
+                                                  (not end_time or p['timestamp'] <= end_time)]
+            data = filtered_data
+            
+        return data
+
     def start(self):
-        self.ani = FuncAnimation(self.fig, self.update, init_func=self.init_plot, interval=self.interval, cache_frame_data=False, blit=True)
+        self.ani = FuncAnimation(self.fig, self.update, 
+                                 init_func=self.init_plot, interval=self.interval, 
+                                 cache_frame_data=False, blit=True)
         plt.legend()
-        plt.ion()
         plt.show()
